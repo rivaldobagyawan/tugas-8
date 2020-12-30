@@ -14,7 +14,7 @@ class NewsRepository {
     suspend fun listNews() : ActionState<List<News>> {
         return try {
             val list = newsService.listNews().await()
-            ActionState(list.data)
+            ActionState(list.results)
         } catch (e: Exception) {
             ActionState(message = e.message, isSuccess = false)
 
@@ -24,7 +24,7 @@ class NewsRepository {
     suspend fun detailNews(url: String) : ActionState<News> {
         return try {
             val list = newsService.detailNews(url).await()
-            ActionState(list.data.first())
+            ActionState(list.results.first())
         } catch (e: Exception) {
             ActionState(message = e.message, isSuccess = false)
         }
@@ -33,7 +33,7 @@ class NewsRepository {
     suspend fun searchNews(query: String) : ActionState<List<News>> {
         return try {
             val list = newsService.searchNews(query).await()
-            ActionState(list.data)
+            ActionState(list.results)
         } catch (e: Exception) {
             ActionState(message = e.message, isSuccess = false)
         }
